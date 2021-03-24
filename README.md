@@ -34,6 +34,7 @@ PS C:\Git repos\python-bdd-test-framework> pip install -r requirements.txt
 
 
 # Useful resources
+- [how to set up selenium](https://selenium-python.readthedocs.io/installation.html)
 - [pytest documentation](https://docs.pytest.org/en/stable/contents.html)
 - [pytest-bdd documentation](https://pytest-bdd.readthedocs.io/en/stable/)
 - [Python virtual environments](https://docs.python.org/3/tutorial/venv.html)
