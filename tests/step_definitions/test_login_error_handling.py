@@ -19,11 +19,13 @@ def display_login_page(browser):
 @when(
     parsers.parse(
         'The user is trying to log in with invalid credentials: '
-        '(email: "{email_address}", password: "{password}")'
+        '(email: "{email}", password: "{password}")'
     )
 )
-def login(login_page, email_address, password):
-    login_page.send_keys_to_email(email_address)
+@when('The user is trying to log in with invalid credentials: '
+      '(email: "<email>", password: "<password>")')
+def login(login_page, email, password):
+    login_page.send_keys_to_email(email)
     login_page.send_keys_to_password(password)
     login_page.sign_in()
 

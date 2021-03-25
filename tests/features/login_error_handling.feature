@@ -17,3 +17,17 @@ Feature: Error handling on the cucumber.io login page
         Given Cucumber.io login page
         When The user is trying to log in with invalid credentials: (email: "test_user_invalid@testde.com", password: "myinvalidpassword")
         Then An error message shows up
+
+    
+    Scenario Outline: Invalid Log in
+
+        Given Cucumber.io login page
+        When The user is trying to log in with invalid credentials: (email: "<email>", password: "<password>")
+        Then An error message shows up
+
+        Examples: Data
+        | email                               | password          |
+        | test_user_invalid@testde.com        | myvalidpassword   |
+        | test_user_invalid@testde.com        | myvalidpassword   |
+        | test_user_valid@testde.com          | myinvalidpassword |
+
