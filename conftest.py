@@ -8,3 +8,8 @@ def browser():
     browser = webdriver.Chrome(options=options)
     yield browser
     browser.quit()
+
+
+def pytest_bdd_step_error(step_func_args):
+    path = f'reports/screenshots/screenshot.png'
+    step_func_args['login_page'].webdriver.save_screenshot(path)
