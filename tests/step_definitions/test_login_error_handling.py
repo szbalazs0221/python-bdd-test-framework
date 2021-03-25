@@ -7,16 +7,12 @@ from selenium.webdriver.common.by import By
 scenarios('../features/login_error_handling.feature')
 
 
-@given("Cucumber.io login page", target_fixture="webdriver")
-def display_login_page():
-    options = webdriver.ChromeOptions()
-    options.add_experimental_option('excludeSwitches', ['enable-logging'])
-    browser = webdriver.Chrome(options=options)
+@given("Cucumber.io login page")
+def display_login_page(browser):
     page = HomePage(browser)
     page.load()
     page.accept_cookies()
     page.login()
-    return browser
 
 
 @when(
@@ -25,21 +21,15 @@ def display_login_page():
         '(email: "{email_address}", password: "{password}")'
     )
 )
-def login(webdriver, email_address, password):
-    login_page = LoginPage(webdriver)
+def login(browser, email_address, password):
+    login_page = LoginPage(browser)
     login_page.send_keys_to_email(email_address)
     login_page.send_keys_to_password(password)
     login_page.sign_in()
 
 
 @then('An error message shows up')
-def validate_error_message(webdriver):
+def validate_error_message(browser):
     error_message_element = (By.CSS_SELECTOR, ".ht-alert__content p")
-    error_text = webdriver.find_element(*error_message_element).text
+    error_text = browser.find_element(*error_message_element).text
     assert error_text == "Invalid email or password."
-    webdriver.quit()
-
-
-
-
-
