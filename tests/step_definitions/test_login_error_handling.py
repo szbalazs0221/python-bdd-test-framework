@@ -1,29 +1,10 @@
-from pytest_bdd import scenario, given, when, then
+from pytest_bdd import scenarios, given, when, then, parsers
 from pages.homepage import HomePage
 from pages.loginpage import LoginPage
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-@scenario(
-    feature_name='../features/login_error_handling.feature', 
-    scenario_name='Log in with an invalid email address'
-)
-def test_log_in_with_invalid_email():
-    pass
-
-@scenario(
-    feature_name='../features/login_error_handling.feature', 
-    scenario_name='Log in with an invalid password'
-)
-def test_log_in_with_invalid_password():
-    pass
-
-@scenario(
-    feature_name='../features/login_error_handling.feature', 
-    scenario_name='Log in with an invalid password and email address'
-)
-def test_log_in_with_invalid_password_and_email():
-    pass
+scenarios('../features/login_error_handling.feature')
 
 
 @given("Cucumber.io login page", target_fixture="webdriver")
@@ -38,30 +19,16 @@ def display_login_page():
     return browser
 
 
-@when('The user is trying to log in with invalid credentials: '
-      '(email: "test_user_invalid@testde.com", password: "myvalidpassword")')
-def login(webdriver):
+@when(
+    parsers.parse(
+        'The user is trying to log in with invalid credentials: '
+        '(email: "{email_address}", password: "{password}")'
+    )
+)
+def login(webdriver, email_address, password):
     login_page = LoginPage(webdriver)
-    login_page.send_keys_to_email("test_user_invalid@testde.com")
-    login_page.send_keys_to_password("myvalidpassword")
-    login_page.sign_in()
-
-
-@when('The user is trying to log in with invalid credentials: '
-      '(email: "test_user_valid@testde.com", password: "myinvalidpassword")')
-def login(webdriver):
-    login_page = LoginPage(webdriver)
-    login_page.send_keys_to_email("test_user_valid@testde.com")
-    login_page.send_keys_to_password("myinvalidpassword")
-    login_page.sign_in()
-
-
-@when('The user is trying to log in with invalid credentials: '
-      '(email: "test_user_invalid@testde.com", password: "myinvalidpassword")')
-def login(webdriver):
-    login_page = LoginPage(webdriver)
-    login_page.send_keys_to_email("test_user_invalid@testde.com")
-    login_page.send_keys_to_password("myinvalidpassword")
+    login_page.send_keys_to_email(email_address)
+    login_page.send_keys_to_password(password)
     login_page.sign_in()
 
 
