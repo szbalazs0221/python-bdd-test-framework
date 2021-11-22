@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 class HomePage:
 
     url = "https://www.cucumber.io"
-    accept_cookies_button = (By.CSS_SELECTOR, "body > div.cc-pop.active > div > div > div.cc-th.ok.text-white > a")
+    accept_cookies_button = (By.ID, "onetrust-accept-btn-handler")
     login_button = (By.CSS_SELECTOR, "a[title=Login]")
 
     def __init__(self, webdriver):
